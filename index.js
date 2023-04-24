@@ -9,15 +9,22 @@ const createStore = redux.createStore
 //creating action
 // an action is an abject with a type element
 const CAKE_OREDERED = 'CAKE_ORDERED'
+const CAKE_RESTOCKED = 'CAKE_RESTOCKED'
 
 //action creator : a function which returs the object / action
 
 function orederCake () {
     return{
             type: CAKE_OREDERED,
-            quantity: 1,
+            payload: 1,
         }
     
+}
+const restockCake = (qty = 1) =>{
+    return{
+        type: CAKE_RESTOCKED,
+        payload: qty,
+    }
 }
 
 //reducer
@@ -36,6 +43,11 @@ const reducer = (state = initialState , action) =>{
             numOfCakes: state.numOfCakes -1
 
         }
+        case CAKE_RESTOCKED:
+            return{
+                ...state,
+                numOfCakes: state.numOfCakes + action.payload
+            }
         default:
             return state
    }
@@ -49,6 +61,7 @@ store.dispatch(orederCake())
 store.dispatch(orederCake())
 store.dispatch(orederCake())
 store.dispatch(orederCake())
+store.dispatch(restockCake(3))
 
 
 unscubscribe()
