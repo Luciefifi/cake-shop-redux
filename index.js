@@ -1,8 +1,13 @@
+
+const redux = require('redux')
+
+const createStore = redux.createStore
+
+
+
+
 //creating action
 // an action is an abject with a type element
-
-const { bindActionCreators } = require("redux")
-
 const CAKE_OREDERED = 'CAKE_ORDERED'
 
 //action creator : a function which returs the object / action
@@ -20,7 +25,6 @@ function orederCake () {
 
 const initialState = {
     numOfCakes : 10,
-    anotherProperty: 0
 }
 
 const reducer = (state = initialState , action) =>{
@@ -36,3 +40,16 @@ const reducer = (state = initialState , action) =>{
             return state
    }
 }
+
+const store = createStore(reducer)
+console.log('the initial state:' ,store.getState())
+ const unscubscribe = store.subscribe(()=>console.log('update State', store.getState()))
+
+store.dispatch(orederCake())
+store.dispatch(orederCake())
+store.dispatch(orederCake())
+store.dispatch(orederCake())
+
+
+unscubscribe()
+
